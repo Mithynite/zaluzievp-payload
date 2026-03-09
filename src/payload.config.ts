@@ -3,23 +3,23 @@ import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
+import { lexicalEditor } from '@payloadcms/richtext-lexical' // Or slateEditor if using Slate
 
-import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
-import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
-import { Footer } from './Footer/config'
-import { Header } from './Header/config'
-import { plugins } from './plugins'
-import { defaultLexical } from '@/fields/defaultLexical'
-import { getServerSideURL } from './utilities/getURL'
+import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+import { getServerSideURL } from './utils/getURL'
 import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { Header } from './globals/Header'
+import { TopNavigation } from './globals/TopNavigation'
+import { Footer } from './globals/Footer'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  editor: lexicalEditor({}),
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -27,7 +27,7 @@ export default buildConfig({
       beforeLogin: ['@/components/BeforeLogin'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
-      beforeDashboard: ['@/components/BeforeDashboard'],
+      beforeDashboard: [],
     },
     importMap: {
       baseDir: path.resolve(dirname),
@@ -57,24 +57,40 @@ export default buildConfig({
     },
   },
   // This config helps us configure global or default features that the other editors can inherit
-  editor: defaultLexical,
+
   db: vercelPostgresAdapter({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
     },
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Users, Pages, Media],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
-    ...plugins,
     vercelBlobStorage({
       collections: {
         media: true,
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
+      access: 'public',
+    }),
+    formBuilderPlugin({
+      fields: {
+        text: true,
+        textarea: true,
+        select: false,
+        radio: false,
+        email: true,
+        state: false,
+        country: false,
+        checkbox: false,
+        number: false,
+        message: false,
+        date: false,
+        payment: false,
+      },
     }),
   ],
-  globals: [Header, Footer],
+  globals: [TopNavigation, Header, Footer],
   secret: process.env.PAYLOAD_SECRET,
   sharp,
   typescript: {
