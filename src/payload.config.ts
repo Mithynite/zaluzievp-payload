@@ -62,6 +62,7 @@ export default buildConfig({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
     },
+    push: true,
   }),
   collections: [Users, Pages, Media],
   cors: [getServerSideURL()].filter(Boolean),
