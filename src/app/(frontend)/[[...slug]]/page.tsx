@@ -1,15 +1,24 @@
 import getPage from '@/lib/pages/getPage'
 import { notFound } from 'next/navigation'
 
-export default async function DynamicPage({ params }: { params: { slug?: string[] } }) {
+type Args = {
+  params: Promise<{
+    slug?: string[]
+  }>
+}
+
+export default async function DynamicPage({ params }: Args) {
   const parameters = await params
-  const page = await getPage(parameters.slug) // something/else/done
+
+  const slugArray = parameters.slug || []
+
+  const page = await getPage(slugArray)
 
   if (!page) return notFound()
 
   return (
-    <main>
-      <h1 className="text-black text-4xl">{page.title}</h1>
+    <main className="container mx-auto p-8">
+      <h1 className="text-black text-4xl font-bold">{page.title}</h1>
     </main>
   )
 }
