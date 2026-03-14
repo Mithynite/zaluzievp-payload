@@ -1,3 +1,4 @@
+import BlockWrapper from '@/components/Blocks/BlockWrapper'
 import getPage from '@/lib/pages/getPage'
 import { notFound } from 'next/navigation'
 
@@ -16,9 +17,17 @@ export default async function DynamicPage({ params }: Args) {
 
   if (!page) return notFound()
 
+  const blocks = page.blocks ?? []
+
   return (
     <main className="container mx-auto p-8">
-      <h1 className="text-black text-4xl font-bold">{page.title}</h1>
+      {blocks.length > 0 ? (
+        <>
+          {blocks.map((block, index) => (
+            <BlockWrapper key={block.id} {...block} />
+          ))}
+        </>
+      ) : null}
     </main>
   )
 }

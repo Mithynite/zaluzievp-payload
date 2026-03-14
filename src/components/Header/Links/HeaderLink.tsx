@@ -27,7 +27,11 @@ export default function HeaderLink({ title, page, anchor }: HeaderLinkProps) {
   }
 
   return (
-    <Link href={href} onClick={handleClick} className="">
+    <Link
+      href={href}
+      onClick={handleClick}
+      className="relative inline-block text-white cursor-pointer after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-left after:scale-x-0 after:bg-white after:transition-transform after:duration-300 hover:after:scale-x-100"
+    >
       {title}
     </Link>
   )

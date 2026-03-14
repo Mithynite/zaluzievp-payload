@@ -15,19 +15,20 @@ import './globals.css'
 import { getServerSideURL } from '@/utils/getURL'
 import TopNavigationWrapper from '@/components/TopNavigation/TopNavigationWrapper'
 import HeaderWrapper from '@/components/Header/HeaderWrapper'
+import FooterWrapper from '@/components/Footer/FooterWrapper'
 
 // Google libraries are already installed in Next JS
 const roboto = Roboto({
-  weight: ['500', '700'], // Roboto requires explicit weights
+  weight: ['300', '400', '500', '700'], // Added 300 and 400
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-roboto', // Useful for Tailwind
+  variable: '--font-roboto',
 })
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
-      className={cn(GeistSans.variable, GeistMono.variable, roboto.className, 'text-gray')}
+      className={cn(GeistSans.variable, GeistMono.variable, roboto.variable, 'text-gray font-sans')}
       lang="en"
       suppressHydrationWarning
     >
@@ -36,12 +37,13 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body>
+      <body className="min-h-dvh w-auto relative flex flex-col">
         <header className="flex flex-col">
           <TopNavigationWrapper />
           <HeaderWrapper />
         </header>
         {children}
+        <FooterWrapper />
       </body>
     </html>
   )

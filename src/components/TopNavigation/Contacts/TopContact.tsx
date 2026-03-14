@@ -11,21 +11,25 @@ export default function TopContact({ value, type }: TopContactProps) {
   switch (type) {
     case 'phone':
       return (
-        <div className="flex flex-row w-auto gap-2.5 justify-center items-center">
+        <div className="flex flex-row w-auto gap-2.5 justify-center items-center font-semibold">
           <div>
-            <FontAwesomeIcon icon={faPhone} size="2xl" />
+            {/* Replaced size="2xl" with responsive text classes */}
+            <FontAwesomeIcon icon={faPhone} className="text-2xl tablet:text-3xl" />
           </div>
-          <span>{value}</span>
+          <span className="text-[15px] tablet:text-xl">{value}</span>
         </div>
       )
     case 'email':
       return (
-        <div className="flex flex-row w-auto gap-2.5 justify-center items-center">
+        <div className="flex flex-row w-auto gap-2.5 justify-center items-center font-semibold">
           <div>
-            <FontAwesomeIcon icon={faPaperPlane} size="2xl" />
+            {/* Added a base size and a tablet size to your existing class */}
+            <FontAwesomeIcon icon={faPaperPlane} className="text-2xl tablet:text-3xl" />
           </div>
-          <span>{value}</span>
+          <span className="text-[15px] tablet:text-xl">{value}</span>
         </div>
       )
+    default:
+      return null
   }
 }

@@ -2,6 +2,12 @@
 const config = {
   theme: {
     extend: {
+      fontFamily: {
+        // This makes Roboto your default font everywhere
+        sans: ['var(--font-roboto)', 'sans-serif'],
+        // You can still keep Geist available if you want to use it for specific things
+        geist: ['var(--font-geist-sans)', 'sans-serif'],
+      },
       typography: () => ({
         DEFAULT: {
           css: [
