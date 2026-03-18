@@ -14,6 +14,7 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Header } from './globals/Header'
 import { TopNavigation } from './globals/TopNavigation'
 import { Footer } from './globals/Footer'
+import { PhoneNumberBlock } from './blocks/PhoneNumberBlock'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -68,6 +69,7 @@ export default buildConfig({
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
     vercelBlobStorage({
+      enabled: true,
       collections: {
         media: true,
       },
@@ -76,11 +78,12 @@ export default buildConfig({
     }),
     formBuilderPlugin({
       fields: {
+        phone: PhoneNumberBlock,
         text: true,
         textarea: true,
+        email: true,
         select: false,
         radio: false,
-        email: true,
         state: false,
         country: false,
         checkbox: false,

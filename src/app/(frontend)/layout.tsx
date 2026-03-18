@@ -48,13 +48,3 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   )
 }
-
-// TODO: Adjust meta
-export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
-  openGraph: mergeOpenGraph(),
-  twitter: {
-    card: 'summary_large_image',
-    creator: '@payloadcms',
-  },
-}

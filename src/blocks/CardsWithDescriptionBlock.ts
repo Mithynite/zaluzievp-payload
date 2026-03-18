@@ -35,19 +35,9 @@ export const CardsWithDescriptionBlock: Block = {
         {
           name: 'description',
           label: 'Popisek',
-          type: 'richText',
+          type: 'textarea',
           required: false,
-          editor: lexicalEditor({
-            features: ({ defaultFeatures }) => [
-              ...defaultFeatures,
-              /*
-              ParagraphFeature(),
-              BoldFeature(),
-              ItalicFeature(),
-              UnderlineFeature(),
-              */
-            ],
-          }),
+          maxLength: 500,
         },
       ],
     },

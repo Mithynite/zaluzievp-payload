@@ -185,21 +185,7 @@ export interface Page {
               | {
                   title: string;
                   image?: (number | null) | Media;
-                  description?: {
-                    root: {
-                      type: string;
-                      children: {
-                        type: any;
-                        version: number;
-                        [k: string]: unknown;
-                      }[];
-                      direction: ('ltr' | 'rtl') | null;
-                      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-                      indent: number;
-                      version: number;
-                    };
-                    [k: string]: unknown;
-                  } | null;
+                  description?: string | null;
                   id?: string | null;
                 }[]
               | null;
@@ -249,6 +235,14 @@ export interface Form {
             id?: string | null;
             blockName?: string | null;
             blockType: 'textarea';
+          }
+        | {
+            name: string;
+            label?: string | null;
+            required?: boolean | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'phoneNumber';
           }
       )[]
     | null;
@@ -713,6 +707,15 @@ export interface FormsSelect<T extends boolean = true> {
               label?: T;
               width?: T;
               defaultValue?: T;
+              required?: T;
+              id?: T;
+              blockName?: T;
+            };
+        phoneNumber?:
+          | T
+          | {
+              name?: T;
+              label?: T;
               required?: T;
               id?: T;
               blockName?: T;
