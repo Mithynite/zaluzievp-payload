@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPhone } from '@fortawesome/free-solid-svg-icons'
 import { faPaperPlane } from '@fortawesome/free-regular-svg-icons'
+import Link from 'next/link'
 
 interface TopContactProps {
   value: string
@@ -8,28 +9,29 @@ interface TopContactProps {
 }
 
 export default function TopContact({ value, type }: TopContactProps) {
+  let contactComponent
+  let href
+
   switch (type) {
     case 'phone':
-      return (
-        <div className="flex flex-row w-auto gap-2.5 justify-center items-center font-semibold">
-          <div>
-            {/* Replaced size="2xl" with responsive text classes */}
-            <FontAwesomeIcon icon={faPhone} className="text-2xl tablet:text-3xl" />
-          </div>
-          <span className="text-[15px] tablet:text-xl">{value}</span>
-        </div>
-      )
+      href = 'tel:' + value
+      contactComponent = <FontAwesomeIcon icon={faPhone} className="text-2xl tablet:text-3xl" />
+      break
     case 'email':
-      return (
-        <div className="flex flex-row w-auto gap-2.5 justify-center items-center font-semibold">
-          <div>
-            {/* Added a base size and a tablet size to your existing class */}
-            <FontAwesomeIcon icon={faPaperPlane} className="text-2xl tablet:text-3xl" />
-          </div>
-          <span className="text-[15px] tablet:text-xl">{value}</span>
-        </div>
+      href = 'mailto:' + value
+      contactComponent = (
+        <FontAwesomeIcon icon={faPaperPlane} className="text-2xl tablet:text-3xl" />
       )
+      break
     default:
-      return null
+      return <></>
   }
+  return (
+    <div className="flex flex-row w-auto gap-2.5 justify-center items-center font-semibold flex-1">
+      <div>{contactComponent}</div>
+      <Link href={href} className="text-[15px] tablet:text-xl">
+        {value}
+      </Link>
+    </div>
+  )
 }

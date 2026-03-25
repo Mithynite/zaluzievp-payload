@@ -4,6 +4,10 @@ import { Block } from 'payload'
 
 export const ReferenceDetailsBlock: Block = {
   slug: 'referenceDetailsBlock',
+  labels: {
+    singular: 'Detaily Reference',
+    plural: 'Detaily Reference',
+  },
   fields: [
     TitleField,
     {
@@ -35,7 +39,7 @@ export const ReferenceDetailsBlock: Block = {
     {
       name: 'description',
       label: 'Popis',
-      type: 'textarea',
+      type: 'richText',
       required: true,
     },
     {

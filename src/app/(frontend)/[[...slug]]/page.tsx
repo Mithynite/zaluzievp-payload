@@ -20,10 +20,10 @@ export default async function DynamicPage({ params }: Args) {
   const blocks = page.blocks ?? []
 
   return (
-    <main className="container mx-auto p-8">
+    <main className="container mx-auto p-8 flex flex-col gap-5">
       {blocks.length > 0 ? (
         <>
-          {blocks.map((block, index) => (
+          {blocks.map((block) => (
             <BlockWrapper key={block.id} {...block} />
           ))}
         </>

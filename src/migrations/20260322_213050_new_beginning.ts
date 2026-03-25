@@ -46,7 +46,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"title" varchar NOT NULL,
   	"image_id" integer,
-  	"description" jsonb
+  	"description" varchar
   );
   
   CREATE TABLE "pages_blocks_cards_with_description_block" (
@@ -133,8 +133,12 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"name" varchar NOT NULL,
   	"label" varchar,
-  	"width" numeric,
+  	"width" varchar,
+  	"max_length" numeric,
   	"required" boolean,
+  	"errors_required_error" varchar,
+  	"errors_max_length_error" varchar,
+  	"errors_incorrect_format_error" varchar,
   	"block_name" varchar
   );
   
@@ -145,9 +149,11 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"name" varchar NOT NULL,
   	"label" varchar,
-  	"width" numeric,
-  	"default_value" varchar,
+  	"width" varchar,
+  	"max_length" numeric,
   	"required" boolean,
+  	"errors_required_error" varchar,
+  	"errors_max_length_error" varchar,
   	"block_name" varchar
   );
   
@@ -158,9 +164,25 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"id" varchar PRIMARY KEY NOT NULL,
   	"name" varchar NOT NULL,
   	"label" varchar,
-  	"width" numeric,
-  	"default_value" varchar,
+  	"width" varchar NOT NULL,
+  	"max_length" numeric,
   	"required" boolean,
+  	"errors_required_error" varchar,
+  	"errors_max_length_error" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "forms_blocks_phone_number" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"name" varchar NOT NULL,
+  	"label" varchar,
+  	"width" varchar NOT NULL,
+  	"required" boolean,
+  	"errors_required_error" varchar,
+  	"errors_format_error" varchar,
   	"block_name" varchar
   );
   
@@ -342,6 +364,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "forms_blocks_email" ADD CONSTRAINT "forms_blocks_email_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "forms_blocks_text" ADD CONSTRAINT "forms_blocks_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "forms_blocks_textarea" ADD CONSTRAINT "forms_blocks_textarea_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "forms_blocks_phone_number" ADD CONSTRAINT "forms_blocks_phone_number_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "forms_emails" ADD CONSTRAINT "forms_emails_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "form_submissions_submission_data" ADD CONSTRAINT "form_submissions_submission_data_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."form_submissions"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "form_submissions" ADD CONSTRAINT "form_submissions_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;
@@ -399,6 +422,9 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "forms_blocks_textarea_order_idx" ON "forms_blocks_textarea" USING btree ("_order");
   CREATE INDEX "forms_blocks_textarea_parent_id_idx" ON "forms_blocks_textarea" USING btree ("_parent_id");
   CREATE INDEX "forms_blocks_textarea_path_idx" ON "forms_blocks_textarea" USING btree ("_path");
+  CREATE INDEX "forms_blocks_phone_number_order_idx" ON "forms_blocks_phone_number" USING btree ("_order");
+  CREATE INDEX "forms_blocks_phone_number_parent_id_idx" ON "forms_blocks_phone_number" USING btree ("_parent_id");
+  CREATE INDEX "forms_blocks_phone_number_path_idx" ON "forms_blocks_phone_number" USING btree ("_path");
   CREATE INDEX "forms_emails_order_idx" ON "forms_emails" USING btree ("_order");
   CREATE INDEX "forms_emails_parent_id_idx" ON "forms_emails" USING btree ("_parent_id");
   CREATE INDEX "forms_updated_at_idx" ON "forms" USING btree ("updated_at");
@@ -461,6 +487,7 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "forms_blocks_email" CASCADE;
   DROP TABLE "forms_blocks_text" CASCADE;
   DROP TABLE "forms_blocks_textarea" CASCADE;
+  DROP TABLE "forms_blocks_phone_number" CASCADE;
   DROP TABLE "forms_emails" CASCADE;
   DROP TABLE "forms" CASCADE;
   DROP TABLE "form_submissions_submission_data" CASCADE;

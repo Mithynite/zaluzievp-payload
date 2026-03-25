@@ -166,6 +166,7 @@ export interface User {
  */
 export interface Page {
   id: number;
+  parent?: (number | null) | Page;
   title?: string | null;
   path: string;
   blocks?:
@@ -193,6 +194,23 @@ export interface Page {
             blockName?: string | null;
             blockType: 'cardsWithDescriptionBlock';
           }
+        | {
+            title: string;
+            tag: string;
+            cards?:
+              | {
+                  title: string;
+                  subTitle: string;
+                  image: number | Media;
+                  toPage: number | Page;
+                  id?: string | null;
+                }[]
+              | null;
+            textToPage?: string | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'cardsWithTitleBlock';
+          }
       )[]
     | null;
   updatedAt: string;
@@ -210,8 +228,14 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
-            width?: number | null;
+            width?: string | null;
+            maxLength?: number | null;
             required?: boolean | null;
+            errors?: {
+              requiredError?: string | null;
+              maxLengthError?: string | null;
+              incorrectFormatError?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'email';
@@ -219,9 +243,13 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
-            width?: number | null;
-            defaultValue?: string | null;
+            width?: string | null;
+            maxLength?: number | null;
             required?: boolean | null;
+            errors?: {
+              requiredError?: string | null;
+              maxLengthError?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'text';
@@ -229,9 +257,13 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
-            width?: number | null;
-            defaultValue?: string | null;
+            width: string;
+            maxLength?: number | null;
             required?: boolean | null;
+            errors?: {
+              requiredError?: string | null;
+              maxLengthError?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'textarea';
@@ -239,7 +271,12 @@ export interface Form {
         | {
             name: string;
             label?: string | null;
+            width: string;
             required?: boolean | null;
+            errors?: {
+              requiredError?: string | null;
+              formatError?: string | null;
+            };
             id?: string | null;
             blockName?: string | null;
             blockType: 'phoneNumber';
@@ -543,6 +580,7 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
+  parent?: T;
   title?: T;
   path?: T;
   blocks?:
@@ -570,6 +608,24 @@ export interface PagesSelect<T extends boolean = true> {
                     description?: T;
                     id?: T;
                   };
+              id?: T;
+              blockName?: T;
+            };
+        cardsWithTitleBlock?:
+          | T
+          | {
+              title?: T;
+              tag?: T;
+              cards?:
+                | T
+                | {
+                    title?: T;
+                    subTitle?: T;
+                    image?: T;
+                    toPage?: T;
+                    id?: T;
+                  };
+              textToPage?: T;
               id?: T;
               blockName?: T;
             };
@@ -685,7 +741,15 @@ export interface FormsSelect<T extends boolean = true> {
               name?: T;
               label?: T;
               width?: T;
+              maxLength?: T;
               required?: T;
+              errors?:
+                | T
+                | {
+                    requiredError?: T;
+                    maxLengthError?: T;
+                    incorrectFormatError?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -695,8 +759,14 @@ export interface FormsSelect<T extends boolean = true> {
               name?: T;
               label?: T;
               width?: T;
-              defaultValue?: T;
+              maxLength?: T;
               required?: T;
+              errors?:
+                | T
+                | {
+                    requiredError?: T;
+                    maxLengthError?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -706,8 +776,14 @@ export interface FormsSelect<T extends boolean = true> {
               name?: T;
               label?: T;
               width?: T;
-              defaultValue?: T;
+              maxLength?: T;
               required?: T;
+              errors?:
+                | T
+                | {
+                    requiredError?: T;
+                    maxLengthError?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -716,7 +792,14 @@ export interface FormsSelect<T extends boolean = true> {
           | {
               name?: T;
               label?: T;
+              width?: T;
               required?: T;
+              errors?:
+                | T
+                | {
+                    requiredError?: T;
+                    formatError?: T;
+                  };
               id?: T;
               blockName?: T;
             };
@@ -882,6 +965,9 @@ export interface Footer {
       }[]
     | null;
   subfooter?: {
+    /**
+     * Zadáním [year] se použije aktuální rok.
+     */
     rights?: string | null;
     author?: string | null;
   };

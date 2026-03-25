@@ -1,14 +1,36 @@
 import { CardsWithDescriptionBlock } from '@/blocks/CardsWithDescriptionBlock'
+import { CardsWithTitleBlock } from '@/blocks/CardsWithTitleBlock'
 import { FormBlock } from '@/blocks/FormBlock'
-import { TitleField } from '@/fields/TitleField'
 import { CollectionConfig } from 'payload'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  labels: {
+    singular: 'Stránka',
+    plural: 'Stránky',
+  },
   admin: {
     useAsTitle: 'title',
   },
   fields: [
+    {
+      name: 'parent',
+      label: 'Rodičovská stránka',
+      type: 'relationship',
+      relationTo: 'pages',
+      admin: {
+        position: 'sidebar',
+        description: '',
+      },
+      filterOptions: ({ id }) => {
+        if (id) {
+          return {
+            id: { not_equals: id },
+          }
+        }
+        return false
+      },
+    },
     {
       name: 'title',
       label: 'Titulek',
@@ -25,7 +47,7 @@ export const Pages: CollectionConfig = {
       name: 'blocks',
       label: 'Sekce stránky',
       type: 'blocks',
-      blocks: [FormBlock, CardsWithDescriptionBlock],
+      blocks: [FormBlock, CardsWithDescriptionBlock, CardsWithTitleBlock],
     },
   ],
 }

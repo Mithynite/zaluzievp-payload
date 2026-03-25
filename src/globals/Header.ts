@@ -4,13 +4,26 @@ import { GlobalConfig } from 'payload'
 export const Header: GlobalConfig = {
   slug: 'header',
   fields: [
-    TitleField,
+    {
+      name: 'title',
+      label: 'Titulek',
+      type: 'text',
+      required: true,
+      maxLength: 25,
+    },
     {
       name: 'links',
       label: 'Odkazy',
       type: 'array',
+      maxRows: 4,
       fields: [
-        TitleField,
+        {
+          name: 'title',
+          label: 'Titulek',
+          type: 'text',
+          required: true,
+          maxLength: 15,
+        },
         {
           name: 'page',
           label: 'Vyber stránku',

@@ -4,6 +4,10 @@ import { Block } from 'payload'
 
 export const FormBlock: Block = {
   slug: 'formBlock',
+  labels: {
+    singular: 'Kontaktní formulář',
+    plural: 'Kontaktní formulář',
+  },
   fields: [
     TitleField,
     TagField,

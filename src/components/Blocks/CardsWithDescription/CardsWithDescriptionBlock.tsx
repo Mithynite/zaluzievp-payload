@@ -1,7 +1,7 @@
 'use client'
 
 import BlockTitle from '@/components/ui/BlockTItle'
-import { SingleBlock } from '@/lib/types/blocks'
+import { SingleBlock } from '@/lib/types/SingleBlocks'
 import CardWithDescription from './CardsWithDescription'
 
 // Extract just the properties for the Block
@@ -12,13 +12,13 @@ export default function CardWithDescriptionBlock(
   const tag = data.tag
 
   const cards = data.cards ?? []
-
+  // className="flex flex-row flex-wrap justify-center gap-7 tablet:justify-normal tablet:px-6 tablet:gap-5 laptop:gap-x-[5%] laptop:gap-y-8"
   return (
-    <section id={tag} className="w-full h-auto flex flex-col gap-5 tablet:gap-7 laptop:gap-10">
+    <>
       <BlockTitle title={title} />
-      <div className="flex flex-row flex-wrap justify-center gap-7 tablet:justify-normal tablet:px-6 tablet:gap-5 laptop:gap-[10%]">
+      <div className="flex flex-row flex-wrap px-4 gap-7 tablet:justify-normal tablet:px-6 tablet:gap-5 laptop:gap-x-[5%] laptop:gap-y-8">
         {cards.length > 0
-          ? cards.map((card, index) => (
+          ? cards.map((card) => (
               <CardWithDescription
                 key={card.id}
                 image={card.image}
@@ -28,6 +28,6 @@ export default function CardWithDescriptionBlock(
             ))
           : null}
       </div>
-    </section>
+    </>
   )
 }

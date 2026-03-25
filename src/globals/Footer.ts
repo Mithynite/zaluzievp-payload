@@ -111,6 +111,9 @@ export const Footer: GlobalConfig = {
           name: 'rights',
           type: 'text',
           required: false,
+          admin: {
+            description: 'Zadáním [year] se použije aktuální rok.',
+          },
         },
         {
           name: 'author',

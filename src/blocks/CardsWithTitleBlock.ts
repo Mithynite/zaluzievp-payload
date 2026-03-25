@@ -12,8 +12,8 @@ import { Block } from 'payload'
 export const CardsWithTitleBlock: Block = {
   slug: 'cardsWithTitleBlock',
   labels: {
-    singular: 'Karta s titulkem',
-    plural: 'Karty s titulky',
+    singular: 'Karty s názvy',
+    plural: 'Karty s názvy',
   },
   fields: [
     TitleField,
@@ -23,7 +23,13 @@ export const CardsWithTitleBlock: Block = {
       label: 'Karty',
       type: 'array',
       fields: [
-        TitleField,
+        {
+          name: 'title',
+          label: 'Titulek',
+          type: 'text',
+          required: true,
+          maxLength: 25,
+        },
         {
           name: 'subTitle',
           label: 'Podnadpis',
@@ -46,6 +52,12 @@ export const CardsWithTitleBlock: Block = {
           required: true,
         },
       ],
+    },
+    {
+      name: 'textToPage',
+      label: 'Text pod kartičkami',
+      type: 'text',
+      maxLength: 25,
     },
   ],
 }

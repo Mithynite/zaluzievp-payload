@@ -1,15 +1,26 @@
+import { cn } from '@/utils/ui'
+
 interface IInputProps extends React.ComponentProps<'textarea'> {
   label?: string
+  value?: string
   error?: string
+  classname?: string
 }
 
-export default function Input({ label, error, ...props }: IInputProps) {
+export default function Input({ label, value, error, className, ...props }: IInputProps) {
   return (
-    <div>
-      <label>
-        {label}
-        <textarea {...props} />
-      </label>
-    </div>
+    <label className="flex flex-col w-full uppercase font-semibold">
+      {label}
+      <textarea
+        {...props}
+        value={value}
+        className={cn(
+          'h-36 p-2 border-2 border-gray resize-none outline-0 bg-white',
+          'focus:outline-none focus:ring-0 focus:border-gray',
+          'autofill:bg-white autofill:shadow-[inset_0_0_0px_1000px_white]',
+          className,
+        )}
+      />
+    </label>
   )
 }

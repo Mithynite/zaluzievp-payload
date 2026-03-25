@@ -15,6 +15,13 @@ export default function FooterClient(props: Footer) {
 
   const subfooter = props.subfooter
 
+  // [year]
+  function formatCopyright(base: string) {
+    const year = new Date().getFullYear()
+    const result = base.replace('[year]', year.toString())
+    return <p>{result}</p>
+  }
+
   return (
     <footer className="flex flex-col w-full min-h-96 text-white bg-gray mt-auto">
       <div className="border-box w-full flex flex-col gap-y-10 flex-5 bg-gray px-8 py-10 tablet:flex-row tablet:gap-x-4 tablet:px-4 laptop:gap-x-20 laptop:px-16">
@@ -80,7 +87,7 @@ export default function FooterClient(props: Footer) {
       </div>
 
       <div className="w-full flex flex-row justify-between items-center p flex-1 bg-dimmed px-4 tablet:px-8 py-2.5 text-gray-400 font-light text-xs tablet:text-[16px]">
-        <p>{subfooter?.rights}</p>
+        {subfooter?.rights ? formatCopyright(subfooter.rights) : <p></p>}
         <p>{subfooter?.author ? 'Author ' + subfooter.author : null}</p>
       </div>
     </footer>

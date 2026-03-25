@@ -4,6 +4,7 @@ import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 import { lexicalEditor } from '@payloadcms/richtext-lexical' // Or slateEditor if using Slate
+import { resendAdapter } from '@payloadcms/email-resend'
 
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -14,7 +15,10 @@ import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
 import { Header } from './globals/Header'
 import { TopNavigation } from './globals/TopNavigation'
 import { Footer } from './globals/Footer'
-import { PhoneNumberBlock } from './blocks/PhoneNumberBlock'
+import { PhoneNumberBlock } from './blocks/form/PhoneNumberBlock'
+import { TextBlock } from './blocks/form/TextBlock'
+import { TextareaBlock } from './blocks/form/TextareaBlock'
+import { EmailBlock } from './blocks/form/EmailBlock'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -57,6 +61,11 @@ export default buildConfig({
       ],
     },
   },
+  email: resendAdapter({
+    defaultFromAddress: 'dev@zaluzievp.cz',
+    defaultFromName: 'ZaluzieVP',
+    apiKey: process.env.RESEND_API_KEY || '',
+  }),
   // This config helps us configure global or default features that the other editors can inherit
 
   db: vercelPostgresAdapter({
@@ -77,11 +86,17 @@ export default buildConfig({
       access: 'public',
     }),
     formBuilderPlugin({
+      formSubmissionOverrides: {
+        admin: {
+          group: 'Odpovědi na formuláře', // Move it to a different sidebar group
+        },
+      },
       fields: {
         phone: PhoneNumberBlock,
-        text: true,
-        textarea: true,
-        email: true,
+        text: TextBlock,
+        textarea: TextareaBlock,
+        email: EmailBlock,
+
         select: false,
         radio: false,
         state: false,

@@ -11,6 +11,9 @@
   --color-gray: #323334;
   --color-dimmed:#222222;
   --color-rot:#803D3B;
+  --color-rotter:#5c2b29;
+  --color-simple-bg:#ECEBE9;
+  --color-errorish:#ed1b0c;
 
   --breakpoint-tablet: 640px;
   --breakpoint-laptop: 1024px;

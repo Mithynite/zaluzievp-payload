@@ -29,6 +29,9 @@ importers:
       '@payloadcms/db-vercel-postgres':
         specifier: 3.77.0
         version: 3.77.0(@types/pg@8.11.6)(payload@3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6))
+      '@payloadcms/email-resend':
+        specifier: ^3.80.0
+        version: 3.80.0(payload@3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6))
       '@payloadcms/live-preview-react':
         specifier: 3.77.0
         version: 3.77.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -119,6 +122,12 @@ importers:
       tailwind-merge:
         specifier: ^3.4.0
         version: 3.5.0
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
+      zustand:
+        specifier: ^5.0.12
+        version: 5.0.12(@types/react@19.2.9)(react@19.2.1)
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.2.0
@@ -1488,6 +1497,12 @@ packages:
     resolution: {integrity: sha512-GhcTK7Hp6alDUukCI4C10xX646+9A+24iSnoefIFIWo7F8cApax5ITuUqcYtNTbP2q9Kpu8uFTJ7uddSlEnw3w==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/@payloadcms/drizzle/-/drizzle-3.77.0.tgz}
     peerDependencies:
       payload: 3.77.0
+
+  '@payloadcms/email-resend@3.80.0':
+    resolution: {integrity: sha512-ykTI9ZKqFWTaFIzeFcQ1kv04SekJhoHcN2FaYQy/r1p9nE4rpZWkh9dMlSu/fTirYqZ2CQVUtuq26AVENNSSSg==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/@payloadcms/email-resend/-/email-resend-3.80.0.tgz}
+    engines: {node: ^18.20.2 || >=20.9.0}
+    peerDependencies:
+      payload: 3.80.0
 
   '@payloadcms/graphql@3.77.0':
     resolution: {integrity: sha512-OcJxsf16u38mvgWLawGrGoN4pFlu34vE6gANYAL1TYapiHgO7NerVwMrg3GQHlriSlaI/K9naLbhXdLp8R/nYw==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/@payloadcms/graphql/-/graphql-3.77.0.tgz}
@@ -5129,6 +5144,27 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/yocto-queue/-/yocto-queue-0.1.0.tgz}
     engines: {node: '>=10'}
 
+  zod@4.3.6:
+    resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/zod/-/zod-4.3.6.tgz}
+
+  zustand@5.0.12:
+    resolution: {integrity: sha512-i77ae3aZq4dhMlRhJVCYgMLKuSiZAaUPAct2AksxQ+gOtimhGMdXljRT21P5BNpeT4kXlLIckvkPM029OljD7g==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/zustand/-/zustand-5.0.12.tgz}
+    engines: {node: '>=12.20.0'}
+    peerDependencies:
+      '@types/react': '>=18.0.0'
+      immer: '>=9.0.6'
+      react: '>=18.0.0'
+      use-sync-external-store: '>=1.2.0'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      immer:
+        optional: true
+      react:
+        optional: true
+      use-sync-external-store:
+        optional: true
+
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/zwitch/-/zwitch-2.0.4.tgz}
 
@@ -6283,6 +6319,10 @@ snapshots:
       - prisma
       - sql.js
       - sqlite3
+
+  '@payloadcms/email-resend@3.80.0(payload@3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6))':
+    dependencies:
+      payload: 3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6)
 
   '@payloadcms/graphql@3.77.0(graphql@16.13.0)(payload@3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6))(typescript@5.7.3)':
     dependencies:
@@ -10318,5 +10358,12 @@ snapshots:
       lib0: 0.2.117
 
   yocto-queue@0.1.0: {}
+
+  zod@4.3.6: {}
+
+  zustand@5.0.12(@types/react@19.2.9)(react@19.2.1):
+    optionalDependencies:
+      '@types/react': 19.2.9
+      react: 19.2.1
 
   zwitch@2.0.4: {}

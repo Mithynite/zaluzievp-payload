@@ -1,7 +1,6 @@
 import { config } from '@fortawesome/fontawesome-svg-core'
 import '@fortawesome/fontawesome-svg-core/styles.css'
 config.autoAddCss = false
-import type { Metadata } from 'next'
 
 import { cn } from '@/utils/ui'
 import { GeistMono } from 'geist/font/mono'
@@ -9,10 +8,7 @@ import { GeistSans } from 'geist/font/sans'
 import React from 'react'
 import { Roboto } from 'next/font/google'
 
-import { mergeOpenGraph } from '@/utils/mergeOpenGraph'
-
 import './globals.css'
-import { getServerSideURL } from '@/utils/getURL'
 import TopNavigationWrapper from '@/components/TopNavigation/TopNavigationWrapper'
 import HeaderWrapper from '@/components/Header/HeaderWrapper'
 import FooterWrapper from '@/components/Footer/FooterWrapper'

@@ -12,8 +12,8 @@ import { Block } from 'payload'
 export const CardsWithDescriptionBlock: Block = {
   slug: 'cardsWithDescriptionBlock',
   labels: {
-    singular: 'Karta s popiskem',
-    plural: 'Karty s popiskem',
+    singular: 'Karty s popisky',
+    plural: 'Karty s popisky',
   },
   fields: [
     TitleField,

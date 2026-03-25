@@ -403,7 +403,7 @@
         },
         "description": {
           "name": "description",
-          "type": "jsonb",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         }
@@ -1253,6 +1253,12 @@
         },
         "width": {
           "name": "width",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "max_length": {
+          "name": "max_length",
           "type": "numeric",
           "primaryKey": false,
           "notNull": false
@@ -1260,6 +1266,24 @@
         "required": {
           "name": "required",
           "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "errors_required_error": {
+          "name": "errors_required_error",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "errors_max_length_error": {
+          "name": "errors_max_length_error",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "errors_incorrect_format_error": {
+          "name": "errors_incorrect_format_error",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -1380,19 +1404,31 @@
         },
         "width": {
           "name": "width",
-          "type": "numeric",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
-        "default_value": {
-          "name": "default_value",
-          "type": "varchar",
+        "max_length": {
+          "name": "max_length",
+          "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
         "required": {
           "name": "required",
           "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "errors_required_error": {
+          "name": "errors_required_error",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "errors_max_length_error": {
+          "name": "errors_max_length_error",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -1513,19 +1549,31 @@
         },
         "width": {
           "name": "width",
-          "type": "numeric",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "default_value": {
-          "name": "default_value",
           "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "max_length": {
+          "name": "max_length",
+          "type": "numeric",
           "primaryKey": false,
           "notNull": false
         },
         "required": {
           "name": "required",
           "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "errors_required_error": {
+          "name": "errors_required_error",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "errors_max_length_error": {
+          "name": "errors_max_length_error",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -1587,6 +1635,145 @@
         "forms_blocks_textarea_parent_id_fk": {
           "name": "forms_blocks_textarea_parent_id_fk",
           "tableFrom": "forms_blocks_textarea",
+          "tableTo": "forms",
+          "columnsFrom": [
+            "_parent_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.forms_blocks_phone_number": {
+      "name": "forms_blocks_phone_number",
+      "schema": "",
+      "columns": {
+        "_order": {
+          "name": "_order",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_parent_id": {
+          "name": "_parent_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "_path": {
+          "name": "_path",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "id": {
+          "name": "id",
+          "type": "varchar",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "label": {
+          "name": "label",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "width": {
+          "name": "width",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "required": {
+          "name": "required",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "errors_required_error": {
+          "name": "errors_required_error",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "errors_format_error": {
+          "name": "errors_format_error",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "block_name": {
+          "name": "block_name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {
+        "forms_blocks_phone_number_order_idx": {
+          "name": "forms_blocks_phone_number_order_idx",
+          "columns": [
+            {
+              "expression": "_order",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "forms_blocks_phone_number_parent_id_idx": {
+          "name": "forms_blocks_phone_number_parent_id_idx",
+          "columns": [
+            {
+              "expression": "_parent_id",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        },
+        "forms_blocks_phone_number_path_idx": {
+          "name": "forms_blocks_phone_number_path_idx",
+          "columns": [
+            {
+              "expression": "_path",
+              "isExpression": false,
+              "asc": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "btree",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "forms_blocks_phone_number_parent_id_fk": {
+          "name": "forms_blocks_phone_number_parent_id_fk",
+          "tableFrom": "forms_blocks_phone_number",
           "tableTo": "forms",
           "columnsFrom": [
             "_parent_id"
@@ -3596,6 +3783,6 @@
     "tables": {},
     "columns": {}
   },
-  "id": "b1c5ebce-0ef5-4da1-a8fe-a3cf068b1099",
+  "id": "7de6be66-6d39-4f9d-b220-4d04334ed5bc",
   "prevId": "00000000-0000-0000-0000-000000000000"
 }

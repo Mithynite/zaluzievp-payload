@@ -20,7 +20,7 @@ export default function HeaderClient(props: Header) {
 
   return (
     <div className="bg-gray w-full h-20 flex flex-row text-white justify-between items-center px-10 relative z-50 font-bold">
-      <h1 className="text-xl tablet:text-3xl">
+      <h1 className="text-xl tablet:text-2xl laptop:text-3xl">
         <Link href="/">{title}</Link>
       </h1>
       <nav className="w-auto hidden flex-row gap-6 tablet:flex">
@@ -49,7 +49,7 @@ export default function HeaderClient(props: Header) {
       </button>
       {isOpen && (
         <div className="absolute left-0 top-full w-full tablet:h-[calc(100dvh-5rem-4.5rem)] bg-gray p-10 z-40">
-          <nav className="w-auto flex flex-col gap-6">
+          <nav className="w-auto flex flex-col gap-6 items-center">
             {links.map((link) => (
               <div key={link.id} onClick={closeMenu}>
                 <HeaderLink title={link.title} page={link.page} anchor={link.anchor} />
