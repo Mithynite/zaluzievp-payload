@@ -166,9 +166,11 @@ export interface User {
  */
 export interface Page {
   id: number;
-  parent?: (number | null) | Page;
   title?: string | null;
-  path: string;
+  /**
+   * Např. reference, montaz-sulice atd. (pro hlavní stránku stačí zadat 'index')
+   */
+  slug: string;
   blocks?:
     | (
         | {
@@ -201,7 +203,7 @@ export interface Page {
               | {
                   title: string;
                   subTitle: string;
-                  image: number | Media;
+                  image?: (number | null) | Media;
                   toPage: number | Page;
                   id?: string | null;
                 }[]
@@ -212,6 +214,15 @@ export interface Page {
             blockType: 'cardsWithTitleBlock';
           }
       )[]
+    | null;
+  parent?: (number | null) | Page;
+  breadcrumbs?:
+    | {
+        doc?: (number | null) | Page;
+        url?: string | null;
+        label?: string | null;
+        id?: string | null;
+      }[]
     | null;
   updatedAt: string;
   createdAt: string;
@@ -580,9 +591,8 @@ export interface UsersSelect<T extends boolean = true> {
  * via the `definition` "pages_select".
  */
 export interface PagesSelect<T extends boolean = true> {
-  parent?: T;
   title?: T;
-  path?: T;
+  slug?: T;
   blocks?:
     | T
     | {
@@ -629,6 +639,15 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+      };
+  parent?: T;
+  breadcrumbs?:
+    | T
+    | {
+        doc?: T;
+        url?: T;
+        label?: T;
+        id?: T;
       };
   updatedAt?: T;
   createdAt?: T;

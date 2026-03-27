@@ -15,7 +15,6 @@ import { RichText } from '@payloadcms/richtext-lexical/react'
 
 export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formBlock' }>) {
   const title = data.title
-  const tag = data.tag
   const form: Omit<Form, 'updatedAt' | 'createdAt'> | null =
     typeof data.form === 'object' && data.form ? data.form : null
 

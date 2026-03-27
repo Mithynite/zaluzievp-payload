@@ -14,34 +14,20 @@ export const Pages: CollectionConfig = {
   },
   fields: [
     {
-      name: 'parent',
-      label: 'Rodičovská stránka',
-      type: 'relationship',
-      relationTo: 'pages',
-      admin: {
-        position: 'sidebar',
-        description: '',
-      },
-      filterOptions: ({ id }) => {
-        if (id) {
-          return {
-            id: { not_equals: id },
-          }
-        }
-        return false
-      },
-    },
-    {
       name: 'title',
       label: 'Titulek',
       type: 'text',
       required: false,
     },
     {
-      name: 'path',
-      label: 'Cesta ke stránce',
+      name: 'slug',
+      label: 'Část URL adresy (slug)',
       type: 'text',
       required: true,
+      index: true,
+      admin: {
+        description: "Např. reference, montaz-sulice atd. (pro hlavní stránku stačí zadat 'index')",
+      },
     },
     {
       name: 'blocks',

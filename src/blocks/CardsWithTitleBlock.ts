@@ -42,13 +42,12 @@ export const CardsWithTitleBlock: Block = {
           type: 'relationship',
           relationTo: 'media',
           hasMany: false,
-          required: true,
         },
         {
           name: 'toPage',
           label: 'Odkaz na stránku',
           type: 'relationship',
-          relationTo: 'pages', // TODO: I do not know if that would be alright
+          relationTo: 'pages',
           required: true,
         },
       ],

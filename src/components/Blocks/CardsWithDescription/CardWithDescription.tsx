@@ -36,7 +36,7 @@ export default function CardWithDescription({
   return (
     <>
       <article
-        className="w-full max-w-sm shadow-2xl flex flex-col cursor-pointer transition-transform tablet:max-w-lg laptop:tablet:max-w-100 laptop:hover:scale-[1.02]"
+        className="w-full max-w-sm shadow-2xl flex flex-col cursor-pointer transition-transform tablet:max-w-lg laptop:tablet:max-w-100 laptop:hover:scale-[1.01]"
         onClick={handleOpening}
       >
         <div className="relative w-full aspect-video">

@@ -5,6 +5,7 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 import { lexicalEditor } from '@payloadcms/richtext-lexical' // Or slateEditor if using Slate
 import { resendAdapter } from '@payloadcms/email-resend'
+import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -84,6 +85,17 @@ export default buildConfig({
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
       access: 'public',
+    }),
+    nestedDocsPlugin({
+      collections: ['pages'],
+      generateLabel: (_, doc) => doc.title as string,
+      generateURL: (docs) => {
+        // 1. Build the standard path
+        const path = docs.reduce((url, doc) => `${url}/${doc.slug}`, '')
+
+        // 2. Intercept the index page and return the root path instead
+        return path === '/index' ? '/' : path
+      },
     }),
     formBuilderPlugin({
       formSubmissionOverrides: {

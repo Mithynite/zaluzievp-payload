@@ -13,7 +13,10 @@ export default function HeaderLink({ title, page, anchor }: HeaderLinkProps) {
 
   if (typeof page === 'number') return null
 
-  const targetPath = page.path
+  const breadcrumbs = page.breadcrumbs || []
+  const lastBreadcrumb = breadcrumbs[breadcrumbs.length - 1]
+
+  const targetPath = lastBreadcrumb?.url || '/'
   const isCurrentPage = pathname === targetPath
 
   const href = anchor ? `${isCurrentPage ? '' : targetPath}#${anchor}` : targetPath

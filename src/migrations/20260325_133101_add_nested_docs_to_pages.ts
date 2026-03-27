@@ -59,10 +59,41 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	"block_name" varchar
   );
   
+  CREATE TABLE "pages_blocks_cards_with_title_block_cards" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" varchar NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"title" varchar NOT NULL,
+  	"sub_title" varchar NOT NULL,
+  	"image_id" integer NOT NULL,
+  	"to_page_id" integer NOT NULL
+  );
+  
+  CREATE TABLE "pages_blocks_cards_with_title_block" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
+  	"_path" text NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"title" varchar NOT NULL,
+  	"tag" varchar NOT NULL,
+  	"text_to_page" varchar,
+  	"block_name" varchar
+  );
+  
+  CREATE TABLE "pages_breadcrumbs" (
+  	"_order" integer NOT NULL,
+  	"_parent_id" integer NOT NULL,
+  	"id" varchar PRIMARY KEY NOT NULL,
+  	"doc_id" integer,
+  	"url" varchar,
+  	"label" varchar
+  );
+  
   CREATE TABLE "pages" (
   	"id" serial PRIMARY KEY NOT NULL,
   	"title" varchar,
   	"path" varchar NOT NULL,
+  	"parent_id" integer,
   	"updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
   	"created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
   );
@@ -360,6 +391,13 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   ALTER TABLE "pages_blocks_cards_with_description_block_cards" ADD CONSTRAINT "pages_blocks_cards_with_description_block_cards_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "pages_blocks_cards_with_description_block_cards" ADD CONSTRAINT "pages_blocks_cards_with_description_block_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_cards_with_description_block"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "pages_blocks_cards_with_description_block" ADD CONSTRAINT "pages_blocks_cards_with_description_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "pages_blocks_cards_with_title_block_cards" ADD CONSTRAINT "pages_blocks_cards_with_title_block_cards_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "pages_blocks_cards_with_title_block_cards" ADD CONSTRAINT "pages_blocks_cards_with_title_block_cards_to_page_id_pages_id_fk" FOREIGN KEY ("to_page_id") REFERENCES "public"."pages"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "pages_blocks_cards_with_title_block_cards" ADD CONSTRAINT "pages_blocks_cards_with_title_block_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages_blocks_cards_with_title_block"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "pages_blocks_cards_with_title_block" ADD CONSTRAINT "pages_blocks_cards_with_title_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "pages_breadcrumbs" ADD CONSTRAINT "pages_breadcrumbs_doc_id_pages_id_fk" FOREIGN KEY ("doc_id") REFERENCES "public"."pages"("id") ON DELETE set null ON UPDATE no action;
+  ALTER TABLE "pages_breadcrumbs" ADD CONSTRAINT "pages_breadcrumbs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."pages"("id") ON DELETE cascade ON UPDATE no action;
+  ALTER TABLE "pages" ADD CONSTRAINT "pages_parent_id_pages_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."pages"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "media" ADD CONSTRAINT "media_folder_id_payload_folders_id_fk" FOREIGN KEY ("folder_id") REFERENCES "public"."payload_folders"("id") ON DELETE set null ON UPDATE no action;
   ALTER TABLE "forms_blocks_email" ADD CONSTRAINT "forms_blocks_email_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
   ALTER TABLE "forms_blocks_text" ADD CONSTRAINT "forms_blocks_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
@@ -400,6 +438,17 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   CREATE INDEX "pages_blocks_cards_with_description_block_order_idx" ON "pages_blocks_cards_with_description_block" USING btree ("_order");
   CREATE INDEX "pages_blocks_cards_with_description_block_parent_id_idx" ON "pages_blocks_cards_with_description_block" USING btree ("_parent_id");
   CREATE INDEX "pages_blocks_cards_with_description_block_path_idx" ON "pages_blocks_cards_with_description_block" USING btree ("_path");
+  CREATE INDEX "pages_blocks_cards_with_title_block_cards_order_idx" ON "pages_blocks_cards_with_title_block_cards" USING btree ("_order");
+  CREATE INDEX "pages_blocks_cards_with_title_block_cards_parent_id_idx" ON "pages_blocks_cards_with_title_block_cards" USING btree ("_parent_id");
+  CREATE INDEX "pages_blocks_cards_with_title_block_cards_image_idx" ON "pages_blocks_cards_with_title_block_cards" USING btree ("image_id");
+  CREATE INDEX "pages_blocks_cards_with_title_block_cards_to_page_idx" ON "pages_blocks_cards_with_title_block_cards" USING btree ("to_page_id");
+  CREATE INDEX "pages_blocks_cards_with_title_block_order_idx" ON "pages_blocks_cards_with_title_block" USING btree ("_order");
+  CREATE INDEX "pages_blocks_cards_with_title_block_parent_id_idx" ON "pages_blocks_cards_with_title_block" USING btree ("_parent_id");
+  CREATE INDEX "pages_blocks_cards_with_title_block_path_idx" ON "pages_blocks_cards_with_title_block" USING btree ("_path");
+  CREATE INDEX "pages_breadcrumbs_order_idx" ON "pages_breadcrumbs" USING btree ("_order");
+  CREATE INDEX "pages_breadcrumbs_parent_id_idx" ON "pages_breadcrumbs" USING btree ("_parent_id");
+  CREATE INDEX "pages_breadcrumbs_doc_idx" ON "pages_breadcrumbs" USING btree ("doc_id");
+  CREATE INDEX "pages_parent_idx" ON "pages" USING btree ("parent_id");
   CREATE INDEX "pages_updated_at_idx" ON "pages" USING btree ("updated_at");
   CREATE INDEX "pages_created_at_idx" ON "pages" USING btree ("created_at");
   CREATE INDEX "media_folder_idx" ON "media" USING btree ("folder_id");
@@ -482,6 +531,9 @@ export async function down({ db, payload, req }: MigrateDownArgs): Promise<void>
   DROP TABLE "pages_blocks_form_block" CASCADE;
   DROP TABLE "pages_blocks_cards_with_description_block_cards" CASCADE;
   DROP TABLE "pages_blocks_cards_with_description_block" CASCADE;
+  DROP TABLE "pages_blocks_cards_with_title_block_cards" CASCADE;
+  DROP TABLE "pages_blocks_cards_with_title_block" CASCADE;
+  DROP TABLE "pages_breadcrumbs" CASCADE;
   DROP TABLE "pages" CASCADE;
   DROP TABLE "media" CASCADE;
   DROP TABLE "forms_blocks_email" CASCADE;

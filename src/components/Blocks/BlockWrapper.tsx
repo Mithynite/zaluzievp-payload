@@ -3,6 +3,7 @@
 import { SingleBlock } from '@/lib/types/SingleBlocks'
 import CardsWithDescriptionBlock from './CardsWithDescription/CardsWithDescriptionBlock'
 import FormBlock from './Form/FormBlock'
+import CardsWithTitleBlock from './CardsWithTitle/CardsWithTitleBlock'
 
 export default async function BlockWrapper(block: SingleBlock) {
   const blockType = block.blockType
@@ -11,6 +12,9 @@ export default async function BlockWrapper(block: SingleBlock) {
   switch (blockType) {
     case 'cardsWithDescriptionBlock':
       blockComponent = <CardsWithDescriptionBlock {...block} />
+      break
+    case 'cardsWithTitleBlock':
+      blockComponent = <CardsWithTitleBlock {...block} />
       break
     case 'formBlock':
       blockComponent = <FormBlock {...block} />

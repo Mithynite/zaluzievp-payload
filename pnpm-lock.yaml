@@ -30,8 +30,8 @@ importers:
         specifier: 3.77.0
         version: 3.77.0(@types/pg@8.11.6)(payload@3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6))
       '@payloadcms/email-resend':
-        specifier: ^3.80.0
-        version: 3.80.0(payload@3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6))
+        specifier: ^3.77.0
+        version: 3.77.0(payload@3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6))
       '@payloadcms/live-preview-react':
         specifier: 3.77.0
         version: 3.77.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -1498,11 +1498,11 @@ packages:
     peerDependencies:
       payload: 3.77.0
 
-  '@payloadcms/email-resend@3.80.0':
-    resolution: {integrity: sha512-ykTI9ZKqFWTaFIzeFcQ1kv04SekJhoHcN2FaYQy/r1p9nE4rpZWkh9dMlSu/fTirYqZ2CQVUtuq26AVENNSSSg==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/@payloadcms/email-resend/-/email-resend-3.80.0.tgz}
+  '@payloadcms/email-resend@3.77.0':
+    resolution: {integrity: sha512-8sm1mKoTDSs8/n6x72Ms8pXbir/oNm2E8p62n/3CyKSl9L+pKTwnfVqNmuJuOxZA0mYKbVojLP0+gWb1no6Fjg==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/@payloadcms/email-resend/-/email-resend-3.77.0.tgz}
     engines: {node: ^18.20.2 || >=20.9.0}
     peerDependencies:
-      payload: 3.80.0
+      payload: 3.77.0
 
   '@payloadcms/graphql@3.77.0':
     resolution: {integrity: sha512-OcJxsf16u38mvgWLawGrGoN4pFlu34vE6gANYAL1TYapiHgO7NerVwMrg3GQHlriSlaI/K9naLbhXdLp8R/nYw==, tarball: https://repo.plus4u.net/operatorGate/repository/public-javascript/@payloadcms/graphql/-/graphql-3.77.0.tgz}
@@ -6320,7 +6320,7 @@ snapshots:
       - sql.js
       - sqlite3
 
-  '@payloadcms/email-resend@3.80.0(payload@3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6))':
+  '@payloadcms/email-resend@3.77.0(payload@3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6))':
     dependencies:
       payload: 3.77.0(bufferutil@4.1.0)(graphql@16.13.0)(typescript@5.7.3)(utf-8-validate@6.0.6)
 

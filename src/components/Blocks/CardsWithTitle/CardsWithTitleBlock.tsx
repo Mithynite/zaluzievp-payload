@@ -2,27 +2,29 @@
 
 import BlockTitle from '@/components/ui/BlockTItle'
 import { SingleBlock } from '@/lib/types/SingleBlocks'
-import CardWithDescription from './CardWithDescription'
+import CardWithTitle from './CardsWithTitle'
 
 // Extract just the properties for the Block
-export default function CardsWithDescriptionBlock(
-  data: Extract<SingleBlock, { blockType: 'cardsWithDescriptionBlock' }>,
+export default function CardsWithTitleBlock(
+  data: Extract<SingleBlock, { blockType: 'cardsWithTitleBlock' }>,
 ) {
   const title = data.title
-
   const cards = data.cards ?? []
-  // className="flex flex-row flex-wrap justify-center gap-7 tablet:justify-normal tablet:px-6 tablet:gap-5 laptop:gap-x-[5%] laptop:gap-y-8"
+  const textToPage = data.textToPage ?? ''
+
   return (
     <>
       <BlockTitle title={title} />
       <div className="flex flex-row flex-wrap px-4 gap-7 tablet:justify-normal tablet:px-6 tablet:gap-5 laptop:gap-x-[5%] laptop:gap-y-8">
         {cards.length > 0
           ? cards.map((card) => (
-              <CardWithDescription
+              <CardWithTitle
                 key={card.id}
-                image={card.image}
                 title={card.title}
-                description={card.description}
+                subtitle={card.subTitle}
+                image={card.image}
+                toPage={card.toPage}
+                textToPage={textToPage}
               />
             ))
           : null}
