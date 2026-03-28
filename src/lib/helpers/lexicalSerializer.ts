@@ -14,6 +14,7 @@ const applyTextFormatting = (text: string, format: number): string => {
 }
 
 // 2. The main recursive serializer
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function serializeLexicalToHTML(node: any): string {
   if (!node) return ''
 
@@ -30,7 +31,7 @@ export function serializeLexicalToHTML(node: any): string {
   // Handle Text Nodes
   if (node.type === 'text') {
     // Escape HTML characters to prevent rendering raw tags typed by the user
-    let text = node.text ? node.text.replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''
+    const text = node.text ? node.text.replace(/</g, '&lt;').replace(/>/g, '&gt;') : ''
     return applyTextFormatting(text, node.format || 0)
   }
 

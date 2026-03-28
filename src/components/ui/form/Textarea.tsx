@@ -3,11 +3,10 @@ import { cn } from '@/utils/ui'
 interface IInputProps extends React.ComponentProps<'textarea'> {
   label?: string
   value?: string
-  error?: string
   classname?: string
 }
 
-export default function Input({ label, value, error, className, ...props }: IInputProps) {
+export default function Input({ label, value, className, ...props }: IInputProps) {
   return (
     <label className="flex flex-col w-full uppercase font-semibold">
       {label}

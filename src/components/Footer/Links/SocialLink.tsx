@@ -1,8 +1,6 @@
-import { Page } from '@/payload-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInstagram, faFacebook, faXTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 
 interface SocialLinkProps {
   link: string

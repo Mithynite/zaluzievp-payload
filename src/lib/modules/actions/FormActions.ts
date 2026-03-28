@@ -4,7 +4,6 @@ import { replaceLexicalVariables } from '@/lib/helpers/formEmailHelpers'
 import { serializeLexicalToHTML } from '@/lib/helpers/lexicalSerializer'
 import { FormEmail } from '@/lib/types/FormEmail'
 import { FormField } from '@/lib/types/FormField'
-import { FormSubmission } from '@/payload-types'
 import config from '@/payload.config'
 import { getPayload } from 'payload'
 import * as z from 'zod'
@@ -12,16 +11,10 @@ import * as z from 'zod'
 interface ISubmitFormProps {
   formData: FormData
   initialFields: FormField[]
-  emails?: FormEmail[] | null
   formId: number
 }
 
-export async function $submitForm({ formData, initialFields, emails, formId }: ISubmitFormProps) {
-  // validovat pole dle blockType
-  // save data
-  // return response
-  // send email
-
+export async function $submitForm({ formData, initialFields, formId }: ISubmitFormProps) {
   const fieldSummary: Record<string, string> = {}
   function buildFieldValidation(field: FormField) {
     const blockType = field.blockType
@@ -82,7 +75,7 @@ export async function $submitForm({ formData, initialFields, emails, formId }: I
     initialFields.map((f) => {
       const fname = 'name' in f && f.name ? f.name : null
       if (!fname) return []
-      let value = formData.get(fname)
+      const value = formData.get(fname)
       return [fname, value] // TODO double []
     }),
   )
@@ -95,6 +88,7 @@ export async function $submitForm({ formData, initialFields, emails, formId }: I
       const fieldSchema = buildFieldValidation(f)
       if (fieldSchema && fname) schema[fname] = fieldSchema
     })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return schema
   }
 
@@ -139,19 +133,21 @@ export async function $submitForm({ formData, initialFields, emails, formId }: I
       }
     })
 
-    const payloadResult = await payload.create({
+    const _payloadResult = await payload.create({
       collection: 'form-submissions',
       data: {
         form: formId,
         submissionData: submissionData,
       },
     })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (e: any) {
     console.error(e.cause)
   }
   return { success: true }
 }
 
+/*
 export async function sendEmail(data: Record<string, any>, emailTemplate: FormEmail) {
   const payload = await getPayload({ config })
 
@@ -181,3 +177,4 @@ export async function sendEmail(data: Record<string, any>, emailTemplate: FormEm
     console.log(e)
   }
 }
+*/

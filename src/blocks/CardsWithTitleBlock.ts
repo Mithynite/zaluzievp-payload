@@ -1,12 +1,5 @@
 import { TagField } from '@/fields/TagField'
 import { TitleField } from '@/fields/TitleField'
-import {
-  BoldFeature,
-  ItalicFeature,
-  lexicalEditor,
-  ParagraphFeature,
-  UnderlineFeature,
-} from '@payloadcms/richtext-lexical'
 import { Block } from 'payload'
 
 export const CardsWithTitleBlock: Block = {

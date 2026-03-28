@@ -51,7 +51,7 @@ export default function FooterClient(props: Footer) {
             <div className="flex flex-col h-full w-auto gap-5 min-w-46">
               <h1 className="text-xl font-semibold">Sledujte nás</h1>
               <div className="grid grid-cols-2 gap-4 max-w-24.5">
-                {socialLinks.map((l, index) => {
+                {socialLinks.map((l) => {
                   const id = l.id
                   const link = l.link
                   const type = l.type
@@ -69,7 +69,7 @@ export default function FooterClient(props: Footer) {
             <div className="flex flex-col h-full w-auto gap-5 min-w-46">
               <h1 className="text-xl font-semibold">Další odkazy</h1>
               <div className="flex flex-col gap-4 font-light">
-                {otherLinks.map((l, index) => {
+                {otherLinks.map((l) => {
                   const id = l.id
                   const title = l.title
                   const link = l.link

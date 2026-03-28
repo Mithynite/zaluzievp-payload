@@ -1,5 +1,3 @@
-import { cn } from '@/utils/ui'
-
 interface IButtonProps extends React.ComponentProps<'button'> {
   text: string
 }

@@ -1,4 +1,3 @@
-import { TitleField } from '@/fields/TitleField'
 import { GlobalConfig } from 'payload'
 
 export const Header: GlobalConfig = {

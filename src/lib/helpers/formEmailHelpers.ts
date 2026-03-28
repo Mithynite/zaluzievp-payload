@@ -1,6 +1,7 @@
 // Add this helper function outside or inside your server action file
 export function replaceLexicalVariables(node: any, data: Record<string, any>): any {
   // Base case: if it's not an object or is null, return it
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   if (!node || typeof node !== 'object') {
     return node
   }
@@ -17,6 +18,7 @@ export function replaceLexicalVariables(node: any, data: Record<string, any>): a
   if (newNode.type === 'text' && typeof newNode.text === 'string') {
     newNode.text = newNode.text.replace(
       /\{\{\s*([^}]+)\s*\}\}/g,
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (match: any, fieldName: string) => {
         const key = fieldName.trim()
         return data[key] !== undefined && data[key] !== null ? String(data[key]) : ''

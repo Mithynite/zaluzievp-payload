@@ -18,7 +18,7 @@ export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formB
     typeof data.form === 'object' && data.form ? data.form : null
 
   const formId = form?.id
-  const emails = form?.emails
+  //const emails = form?.emails
   const confirmationMessage = form?.confirmationMessage ?? ''
   const submitButtonLabel = form?.submitButtonLabel ?? 'Odeslat'
 
@@ -33,8 +33,8 @@ export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formB
 
   const { fields, setField, resetForm } = useContactStore()
 
-  // TODO: add Richtext option
-  const [message, setMessage] = useState<any>(null) // TODO: Change to richtext
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [message, setMessage] = useState<any>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [fieldErrors, setFieldErrors] = useState<Record<string, string | string[] | undefined>>({
     ...formFieldErrors,
@@ -67,7 +67,7 @@ export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formB
     }
 
     try {
-      const response = await $submitForm({ formData, initialFields, emails, formId })
+      const response = await $submitForm({ formData, initialFields, formId })
       if (response.success) {
         resetForm()
         setMessage(confirmationMessage)
@@ -82,7 +82,7 @@ export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formB
         }
         setMessage(null)
       }
-    } catch (e) {
+    } catch (_e) {
       setFieldErrors({
         ...fieldErrors,
         formError: 'Došlo k chybě. Zkuste to prosím znovu.',
@@ -112,6 +112,7 @@ export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formB
 
     switch (blockType) {
       case 'textarea':
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChangeFunction = (e: any) => setField(fname, e.target.value, required)
         fieldComponent = (
           <Textarea
@@ -128,6 +129,7 @@ export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formB
         break
       case 'text':
       case 'email':
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChangeFunction = (e: any) => setField(fname, e.target.value, required)
         fieldComponent = (
           <Input
@@ -143,6 +145,7 @@ export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formB
         )
         break
       case 'phoneNumber':
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         onChangeFunction = (e: any) => setField(fname, formatPhoneNumber(e.target.value), required)
         fieldComponent = (
           <Input
@@ -191,7 +194,7 @@ export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formB
   //
   return (
     <>
-      <Title title={title} classNameMarker='bg-rot'/>
+      <Title title={title} classNameMarker="bg-rot" />
 
       {message ? (
         <div className="px-6">
