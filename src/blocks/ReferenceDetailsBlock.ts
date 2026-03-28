@@ -1,3 +1,4 @@
+import { TagField } from '@/fields/TagField'
 import { TitleField } from '@/fields/TitleField'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { Block } from 'payload'
@@ -10,6 +11,7 @@ export const ReferenceDetailsBlock: Block = {
   },
   fields: [
     TitleField,
+    TagField,
     {
       name: 'information',
       label: 'Informace',
@@ -19,13 +21,14 @@ export const ReferenceDetailsBlock: Block = {
           name: 'location',
           label: 'Lokace',
           type: 'text',
+          maxLength: 100,
           required: true,
         },
         {
           name: 'services',
           label: 'Služby',
-          type: 'richText',
-          editor: lexicalEditor({}),
+          type: 'text',
+          maxLength: 100,
           required: true,
         },
         {
@@ -40,6 +43,7 @@ export const ReferenceDetailsBlock: Block = {
       name: 'description',
       label: 'Popis',
       type: 'richText',
+      editor:lexicalEditor(),
       required: true,
     },
     {

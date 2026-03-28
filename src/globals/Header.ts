@@ -39,7 +39,7 @@ export const Header: GlobalConfig = {
           type: 'text',
           required: false,
           admin: {
-            description: 'Např. "kontakt". Pokud je vyplněno, odkaz zacílí na tuto sekci.',
+            description: "Např. 'contact', pokud je vyplněno, odkaz zacílí na tuto sekci",
           },
         },
       ],

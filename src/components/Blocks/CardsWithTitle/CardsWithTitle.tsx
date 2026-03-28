@@ -7,6 +7,7 @@ import { Media, Page } from '@/payload-types'
 import { cn } from '@/utils/ui'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleRight, faXmark } from '@fortawesome/free-solid-svg-icons' // Standard icon name
+import Link from 'next/link'
 
 interface ICardWithTitleProps {
   title: string
@@ -26,12 +27,21 @@ export default function CardWithTitle({
   const imageUrl =
     typeof image === 'object' && image?.sizes?.square?.url
       ? image.sizes.square.url
-      : '/api/media/file/Default%20image.png'
+      : '/api/media/file/default.png'
 
   const altText = typeof image === 'object' && image?.alt ? image.alt : 'default'
-
+  let targetUrl = '#'
+    if (typeof toPage === 'object' && toPage !== null) {
+      const breadcrumbs = toPage.breadcrumbs || []
+      const lastBreadcrumb = breadcrumbs[breadcrumbs.length - 1]
+      targetUrl = lastBreadcrumb?.url || '/'
+    }
   return (
-    <>
+    <Link 
+      href={targetUrl} 
+      // Moved the sizing constraints here so the link block behaves correctly
+      className="block w-full max-w-sm tablet:max-w-lg laptop:tablet:max-w-100 outline-none" 
+    >
       <article className="w-full max-w-sm shadow-2xl flex flex-col cursor-pointer transition-transform tablet:max-w-lg laptop:tablet:max-w-100 laptop:hover:scale-[1.01]">
         <div className="relative w-full aspect-video">
           <Image src={imageUrl} alt={altText} fill className="object-cover" />
@@ -55,6 +65,6 @@ export default function CardWithTitle({
           <FontAwesomeIcon icon={faAngleRight} className="mr-2 text-2xl tablet:text-3xl" />
         </div>
       </article>
-    </>
+    </Link>
   )
 }

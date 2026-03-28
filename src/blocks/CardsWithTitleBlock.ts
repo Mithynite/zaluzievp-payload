@@ -34,6 +34,7 @@ export const CardsWithTitleBlock: Block = {
           name: 'subTitle',
           label: 'Podnadpis',
           type: 'text',
+          maxLength: 30,
           required: true,
         },
         {

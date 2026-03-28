@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 import { lexicalEditor } from '@payloadcms/richtext-lexical' // Or slateEditor if using Slate
 import { resendAdapter } from '@payloadcms/email-resend'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
+import { seoPlugin } from '@payloadcms/plugin-seo'
 
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
@@ -68,7 +69,6 @@ export default buildConfig({
     apiKey: process.env.RESEND_API_KEY || '',
   }),
   // This config helps us configure global or default features that the other editors can inherit
-
   db: vercelPostgresAdapter({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
@@ -85,6 +85,13 @@ export default buildConfig({
       },
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
       access: 'public',
+    }),
+    seoPlugin({
+      collections: ['pages'], // Adds the meta fields to your Pages collection
+      uploadsCollection: 'media', // Use the slug of your image collection
+      // Fallbacks if the user doesn't explicitly type an SEO title
+      generateTitle: ({ doc }) => doc?.title ? `${doc.title} | Žaluzie VP` : 'Žaluzie VP',
+      generateDescription: ({ doc }) => doc?.description as string || '',
     }),
     nestedDocsPlugin({
       collections: ['pages'],

@@ -30,7 +30,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     >
       <head className="w-full h-auto">
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <link href="/favicon.png" rel="icon" type="image/png" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
       <body className="min-h-dvh w-auto relative flex flex-col">

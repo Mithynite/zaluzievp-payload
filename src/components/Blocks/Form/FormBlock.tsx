@@ -1,5 +1,5 @@
 'use client'
-import BlockTitle from '@/components/ui/BlockTItle'
+import Title from '@/components/ui/Title'
 import Input from '@/components/ui/form/Input'
 import Textarea from '@/components/ui/form/Textarea'
 import { useContactStore } from '@/lib/stores/ContactStore'
@@ -10,7 +10,6 @@ import { useState } from 'react'
 import Button from '@/components/ui/form/Button'
 import { $submitForm } from '@/lib/modules/actions/FormActions'
 import { Spinner } from '@/components/ui/spinner'
-import { serializeLexicalToHTML } from '@/lib/helpers/lexicalSerializer'
 import { RichText } from '@payloadcms/richtext-lexical/react'
 
 export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formBlock' }>) {
@@ -192,11 +191,11 @@ export default function FormBlock(data: Extract<SingleBlock, { blockType: 'formB
   //
   return (
     <>
-      <BlockTitle title={title} classNames={{ marker: ['bg-rot'], title: [''] }} />
+      <Title title={title} classNameMarker='bg-rot'/>
 
       {message ? (
         <div className="px-6">
-          <RichText data={message} className="text-xl tablet:text-2xl laptop:text-3xl" />
+          <RichText data={message} className="text-xl tablet:text-2xl laptop:text-2xl" />
         </div>
       ) : (
         <form

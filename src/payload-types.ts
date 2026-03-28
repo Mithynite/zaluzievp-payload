@@ -175,6 +175,9 @@ export interface Page {
     | (
         | {
             title: string;
+            /**
+             * Např.: 'contact', 'reference' atd.
+             */
             tag: string;
             form: number | Form;
             id?: string | null;
@@ -183,6 +186,9 @@ export interface Page {
           }
         | {
             title: string;
+            /**
+             * Např.: 'contact', 'reference' atd.
+             */
             tag: string;
             cards?:
               | {
@@ -198,6 +204,9 @@ export interface Page {
           }
         | {
             title: string;
+            /**
+             * Např.: 'contact', 'reference' atd.
+             */
             tag: string;
             cards?:
               | {
@@ -213,8 +222,47 @@ export interface Page {
             blockName?: string | null;
             blockType: 'cardsWithTitleBlock';
           }
+        | {
+            title: string;
+            /**
+             * Např.: 'contact', 'reference' atd.
+             */
+            tag: string;
+            information: {
+              location: string;
+              services: string;
+              date: string;
+            };
+            description: {
+              root: {
+                type: string;
+                children: {
+                  type: any;
+                  version: number;
+                  [k: string]: unknown;
+                }[];
+                direction: ('ltr' | 'rtl') | null;
+                format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+                indent: number;
+                version: number;
+              };
+              [k: string]: unknown;
+            };
+            images?: (number | Media)[] | null;
+            id?: string | null;
+            blockName?: string | null;
+            blockType: 'referenceDetailsBlock';
+          }
       )[]
     | null;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+  };
   parent?: (number | null) | Page;
   breadcrumbs?:
     | {
@@ -639,6 +687,30 @@ export interface PagesSelect<T extends boolean = true> {
               id?: T;
               blockName?: T;
             };
+        referenceDetailsBlock?:
+          | T
+          | {
+              title?: T;
+              tag?: T;
+              information?:
+                | T
+                | {
+                    location?: T;
+                    services?: T;
+                    date?: T;
+                  };
+              description?: T;
+              images?: T;
+              id?: T;
+              blockName?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
       };
   parent?: T;
   breadcrumbs?:
@@ -942,7 +1014,7 @@ export interface Header {
         title: string;
         page: number | Page;
         /**
-         * Např. "kontakt". Pokud je vyplněno, odkaz zacílí na tuto sekci.
+         * Např. 'contact', pokud je vyplněno, odkaz zacílí na tuto sekci
          */
         anchor?: string | null;
         id?: string | null;

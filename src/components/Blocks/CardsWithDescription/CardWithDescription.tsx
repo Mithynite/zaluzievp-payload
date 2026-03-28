@@ -29,7 +29,7 @@ export default function CardWithDescription({
   const imageUrl =
     typeof image === 'object' && image?.sizes?.square?.url
       ? image.sizes.square.url
-      : '/api/media/file/Default%20image.png'
+      : '/api/media/file/default.png'
 
   const altText = typeof image === 'object' && image?.alt ? image.alt : 'default'
 

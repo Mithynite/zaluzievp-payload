@@ -1,14 +1,11 @@
 import { CardsWithDescriptionBlock } from '@/blocks/CardsWithDescriptionBlock'
 import { CardsWithTitleBlock } from '@/blocks/CardsWithTitleBlock'
 import { FormBlock } from '@/blocks/FormBlock'
+import { ReferenceDetailsBlock } from '@/blocks/ReferenceDetailsBlock'
 import { CollectionConfig } from 'payload'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
-  labels: {
-    singular: 'Stránka',
-    plural: 'Stránky',
-  },
   admin: {
     useAsTitle: 'title',
   },
@@ -33,7 +30,7 @@ export const Pages: CollectionConfig = {
       name: 'blocks',
       label: 'Sekce stránky',
       type: 'blocks',
-      blocks: [FormBlock, CardsWithDescriptionBlock, CardsWithTitleBlock],
+      blocks: [FormBlock, CardsWithDescriptionBlock, CardsWithTitleBlock, ReferenceDetailsBlock],
     },
   ],
 }
