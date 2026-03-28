@@ -1,5 +1,5 @@
 import { GlobalConfig } from 'payload'
-
+// Comment
 export const TopNavigation: GlobalConfig = {
   slug: 'topNavigation',
   fields: [
